@@ -1,10 +1,7 @@
----
-This is How To of UVCCamera project
----
+# This is How To of UVCCamera project
 
----
-How to change resolution
----
+## How to change resolution
+
 If you want just one higher resolution than 640×480, for example 1920×1080, all you have to do is,
 
 1. Change DEFAULT_PREVIEW_WIDTH from 640 to 1920 in UVCPreview.h  
@@ -12,18 +9,16 @@ If you want just one higher resolution than 640×480, for example 1920×1080, al
 3. Rebuild shared libraries using Android NDK  
 4. Replace shared libraries placed {project home directory}/libs/armeabi-v7a in specific sample project.  
 5. Some projects need to set aspect ratio of camera images.  
-
-It is like this,  
-* from  
-    `mCameraView.set AspectRatio(640 / 480.f);`   
-* to  
-    `mCameraView.setAspectRatio(1920 / 1080.f);`  
+    * It is like this,  
+    * from  
+        `mCameraView.set AspectRatio(640 / 480.f);`   
+    * to  
+        `mCameraView.setAspectRatio(1920 / 1080.f);`  
 
 6. Run app or export as apk.  
 
----
-How to use MJPEG mode
----
+## How to use MJPEG mode
+
 if you want to use MJPEG mode, please change as follows,
 
 1. in UVCPreview::UVCPreview function (this is just safety)  
