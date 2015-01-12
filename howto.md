@@ -10,32 +10,29 @@ If you want just one higher resolution than 640×480, for example 1920×1080, al
 4. Replace shared libraries placed {project home directory}/libs/armeabi-v7a in specific sample project.  
 5. Some projects need to set aspect ratio of camera images.  
     * It is like this,  
-    * from  
-        `mCameraView.set AspectRatio(640 / 480.f);`   
-    * to  
-        `mCameraView.setAspectRatio(1920 / 1080.f);`  
-
+    * from `mCameraView.set AspectRatio(640 / 480.f);`   
+    * to  `mCameraView.setAspectRatio(1920 / 1080.f);`  
 6. Run app or export as apk.  
 
 ## How to use MJPEG mode
 
-if you want to use MJPEG mode, please change as follows,
+If you want to use MJPEG mode, please change as follows,
 
 1. in UVCPreview::UVCPreview function (this is just safety)  
-* from  
-    `frameBytes(DEFAULT_PREVIEW_WIDTH * DEFAULT_PREVIEW_HEIGHT * 2)`
-* to  
-    `frameBytes(DEFAULT_PREVIEW_WIDTH * DEFAULT_PREVIEW_HEIGHT * 4)`
+    * from  
+        `frameBytes(DEFAULT_PREVIEW_WIDTH * DEFAULT_PREVIEW_HEIGHT * 2)`
+    * to  
+        `frameBytes(DEFAULT_PREVIEW_WIDTH * DEFAULT_PREVIEW_HEIGHT * 4)`
 
 2. in UVCPreview::prepare_preview function  
-* from  
-    `   result = uvc_get_stream_ctrl_format_size_fps(mDeviceHandle, ctrl,  
-              UVC_FRAME_FORMAT_YUYV,  
-              requestWidth, requestHeight, 1, 30 );`
-* to  
-    `    result = uvc_get_stream_ctrl_format_size_fps(mDeviceHandle, ctrl,
-              UVC_FRAME_FORMAT_MJPEG,
-              requestWidth, 1, 30 );`
+    * from  
+        `   result = uvc_get_stream_ctrl_format_size_fps(mDeviceHandle, ctrl,  
+                  UVC_FRAME_FORMAT_YUYV,  
+                  requestWidth, requestHeight, 1, 30 );`
+    * to  
+        `    result = uvc_get_stream_ctrl_format_size_fps(mDeviceHandle, ctrl,
+                  UVC_FRAME_FORMAT_MJPEG,
+                  requestWidth, 1, 30 );`
 
 3. in UVCPreview::do_preview function,  
 * from
