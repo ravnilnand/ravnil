@@ -21,33 +21,33 @@ How to use MJPEG mode
 ---
 if you want to use MJPEG mode, please change as follows,
 
-1) in UVCPreview::UVCPreview function (this is just safety)
-from
+1) in UVCPreview::UVCPreview function (this is just safety)  
+from  
     `frameBytes(DEFAULT_PREVIEW_WIDTH * DEFAULT_PREVIEW_HEIGHT * 2)`
-to
+to  
     `frameBytes(DEFAULT_PREVIEW_WIDTH * DEFAULT_PREVIEW_HEIGHT * 4)`
 
-2) in UVCPreview::prepare_preview function
-from
-    `result = uvc_get_stream_ctrl_format_size_fps(mDeviceHandle, ctrl,
+2) in UVCPreview::prepare_preview function  
+from  
+`    result = uvc_get_stream_ctrl_format_size_fps(mDeviceHandle, ctrl,
         UVC_FRAME_FORMAT_YUYV,
         requestWidth, requestHeight, 1, 30 );`
-to
-    `result = uvc_get_stream_ctrl_format_size_fps(mDeviceHandle, ctrl,
+to  
+`    result = uvc_get_stream_ctrl_format_size_fps(mDeviceHandle, ctrl,
         UVC_FRAME_FORMAT_MJPEG,
         requestWidth, 1, 30 );`
 
-3) in UVCPreview::do_preview function,
+3) in UVCPreview::do_preview function,  
 from
-    `while (LIKELY(isRunning())) {
+`    while (LIKELY(isRunning())) {
         frame = waitPreviewFrame();
         if (LIKELY(frame)) {
             frame = draw_preview_one(frame, &mPreviewWindow, uvc_any2rgbx, 4);
             addCaptureFrame(frame);
         }
     }`
-to
-    `while (LIKELY(isRunning())) {
+to  
+`    while (LIKELY(isRunning())) {
         frame_mjpeg = waitPreviewFrame();
         if (LIKELY(frame_mjpeg)) {
             frame_yuyv = uvc_allocate_frame(frame_mjpeg->width * frame_mjpeg->height * 2);
@@ -60,5 +60,5 @@ to
                 uvc_free_frame(frame_yuyv);
             }
         }
-    }`
+    }`  
 of course you need to add “frame_mjpeg” and “frame_yuyv” variables instead of “frame” variavle.
