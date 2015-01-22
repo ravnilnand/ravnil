@@ -1,4 +1,5 @@
 ## How to change resolution
+(This is old. Latest version supports preview resolution setting by UVCCamera#setPreviewSize)
 
 If you want just one higher resolution than 640×480, for example 1920×1080, all you have to do is,
 
@@ -19,6 +20,7 @@ If you want just one higher resolution than 640×480, for example 1920×1080, al
 6 ) Run app or export as apk.  
 
 ## How to use MJPEG mode
+(This is old. Latest version supports preview mode setting by UVCCamera#setPreviewSize)
 
 If you want to use MJPEG mode, please change as follows,
 
