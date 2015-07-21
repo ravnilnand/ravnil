@@ -24,7 +24,7 @@ This is almost same as USBCameraTest3 but save video images using IFrameCallback
 In most case, you should not use IFrameCallback to save images because IFrameCallback is much slower than using Surface. But IFrameCallback will be useful if you want to get video frame data and process them by yourself or passing them to other external library as byte buffer.  
 
 7 ) USBCameraTest6  
-This shows how to sprit video images to multiple Surface. You can see video images side by side view on this app. This sample also show how to use EGL to render image. If you want to show video images after adding visual effect/filter effects, this sample may help you.  
+This shows how to split video images to multiple Surface. You can see video images side by side view on this app. This sample also show how to use EGL to render image. If you want to show video images after adding visual effect/filter effects, this sample may help you.  
 
 
 If you want to build above sample project, just import the project to your IDE and run it. You don't need `libUVCCamera` library project to build sample unless you want to change/modify/add some features in JNI side.  
