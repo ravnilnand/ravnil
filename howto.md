@@ -119,6 +119,7 @@ of course you need to add “frame_mjpeg” and “frame_yuyv” variables inste
 ## How to create Bitmap in IFrameCallback
 I don't recommend this way because IFrameCallback is relatively slow but if you really need to create Bitmap in IFrameCallback, please refer following code.
 
+``` java
     private final Bitmap bitmap = Bitmap.createBitmap(UVCCamera.DEFAULT_PREVIEW_WIDTH, UVCCamera.DEFAULT_PREVIEW_HEIGHT, Bitmap.Config.RGB_565);
     private final IFrameCallback mIFrameCallback = new IFrameCallback() {
     	@Override
@@ -139,4 +140,5 @@ I don't recommend this way because IFrameCallback is relatively slow but if you 
      		}
     	}
     };
+```  
 
