@@ -1,6 +1,6 @@
 ## About samples
 
-There are 7 samples are available now.  
+There are 8 samples are available now.  
 
 Note: Unless you actually need and you know what you should do, please do not change class(file) name and field name of UVCCamera.java otherwise app will crash when accessing USB camera function.
 
@@ -26,6 +26,9 @@ In most case, you should not use IFrameCallback to save images because IFrameCal
 7 ) USBCameraTest6  
 This shows how to split video images to multiple Surface. You can see video images side by side view on this app. This sample also show how to use EGL to render image. If you want to show video images after adding visual effect/filter effects, this sample may help you.  
 
+
+8 ) USBCameraTest7  
+This shows how to use two camera and show video images from each camera side-by side. This is still experimental and may have some issue. 
 
 If you want to build above sample project, just import the project to your IDE and run it. You don't need `libUVCCamera` library project to build sample unless you want to change/modify/add some features in JNI side.  
 
@@ -112,3 +115,28 @@ If you want to use MJPEG mode, please change as follows,
     }
 ```  
 of course you need to add “frame_mjpeg” and “frame_yuyv” variables instead of “frame” variavle.
+
+## How to create Bitmap in IFrameCallback
+I don't recommend this way because IFrameCallback is relatively slow but if you really need to create Bitmap in IFrameCallback, please refer following code.
+
+    private final Bitmap bitmap = Bitmap.createBitmap(UVCCamera.DEFAULT_PREVIEW_WIDTH, UVCCamera.DEFAULT_PREVIEW_HEIGHT, Bitmap.Config.RGB_565);
+    private final IFrameCallback mIFrameCallback = new IFrameCallback() {
+    	@Override
+    	public void onFrame(final ByteBuffer frame) {
+    		frame.clear();
+    		synchronized (bitmap) {
+    			bitmap.copyPixelsFromBuffer(frame);
+    		}
+    		mImageView.post(mUpdateImageTask);
+    	}
+    };
+    
+    private final Runnable mUpdateImageTask = new Runnable() {
+    	@Override
+    	public void run() {
+    		synchronized (bitmap) {
+    			mImageView.setImageBitmap(bitmap);
+     		}
+    	}
+    };
+
