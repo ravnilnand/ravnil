@@ -142,3 +142,78 @@ I don't recommend this way because IFrameCallback is relatively slow but if you 
     };
 ```  
 
+## How to start app when user connect UVC device to Android device
+If you want to start app automatically, add followings on your AndroidManifest.xml
+```
+	    <activity
+            android:name="{FQN of your main activiy}"
+            android:label="{app name}"
+			android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+			<intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/device_filter" />
+		</activity>
+```
+
+You can edit device_filter.xml if you want to use only specific UVC camera.
+
+And request permission when app detects UVC devices.
+```
+	private final OnDeviceConnectListener mOnDeviceConnectListener = new OnDeviceConnectListener() {
+		@Override
+		public void onAttach(UsbDevice device) {
+			// this is called when user connect UVC camera and Android detected it.
+			// if you want to use camera automatically, request permission here like as follows.
+			final int n = mUSBMonitor.getDeviceCount()
+			if ((device == null) && (n > 0)) {
+				// #onAttach will be called with null argument when USBMonitor detect device connection without intent.
+				final List<UsbDevice> devices = mUSBMonitor.getDeviceList();
+				// set first one
+				device = devices.get(0);
+			}
+			if (n == 1) {
+				// if there is only one camera, request permission.
+				// first time you call #requestPermission or app has no permission, Android shows permission dialog.
+				// if app already has permission or user give permission on permission dialog, USBMonitor call #onConnect callback method.
+				final boolean result = mUSBMonitor.requestPermission(device);
+				if (result) {
+					// when failed. your device may not support USB.
+				}
+			} else if (n > 1) {
+				// show dialog to select camera
+//				CameraDialog.showDialog(this);
+				// or if you know your device-id/product-id that you want to use and device is that one, request permission
+			}
+		}
+
+		@Override
+		public void onConnect(final UsbDevice device, final UsbControlBlock ctrlBlock, final boolean createNew) {
+			// this is called user give permission. now you cane open camera and start previewing
+//			mHandler.openCamera(ctrlBlock);
+//			startPreview();
+		}
+
+		@Override
+		public void onDisconnect(final UsbDevice device, final UsbControlBlock ctrlBlock) {
+			// this is called when user close camera (and also called when user remove UVC camera while using)
+//			mHandler.closeCamera();
+		}
+
+		@Override
+		public void onDettach(final UsbDevice device) {
+			// this is called when UVC camera removed from the device. (will be after #onDisconnect)
+		}
+
+		@Override
+		public void onCancel(final UsbDevice device) {
+			// this is be called when user did not give permission to app
+		}
+	};
+```
