@@ -6,3 +6,4 @@ Welcome to the UVCCamera wiki!
 * [How to start app when user connects UVC device](howto_start_app_on_connecting_uvc_devices)
 * [How to debug over network](howto_debug_over_network)
 * [How to hold permanent permission](howto_hold_permanent_permission)
+* [How to import into Eclipse(not recommend)](howto_import_into_eclipse)
