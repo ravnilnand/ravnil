@@ -30,4 +30,7 @@ This shows how to split video images to multiple Surface. You can see video imag
 8 ) USBCameraTest7  
 This shows how to use two camera and show video images from each camera side-by side. This is still experimental and may have some issue.
 
+9 ) usbCameraTest8
+This shows how to set/get uvc controls. Currently this supports brightness and contrast only.
+
 If you want to build above sample project, just import the project to your IDE and run it. You don't need `libUVCCamera` library project to build sample unless you want to change/modify/add some features in JNI side.  
