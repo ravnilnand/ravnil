@@ -7,3 +7,4 @@ Welcome to the UVCCamera wiki!
 * [How to debug over network](howto_debug_over_network)
 * [How to hold permanent permission](howto_hold_permanent_permission)
 * [How to import into Eclipse(not recommend)](howto_import_into_eclipse)
+* [When you import libuvccamera module into your project...](When-you-import-libuvccamera-module-in-your-project-instead-of-building-these-samples-from-this-repository)
